@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { StyledComponent } from 'styled-components';
 
 class StyledChain {
   public static definitions = {};
@@ -54,7 +54,9 @@ const exportSc: (
     register: typeof StyledChain.register
   } & {
     // eslint-disable-next-line no-undef
-    [ key in keyof (JSX.IntrinsicElements) ]: (typeof styled[key]) & DefinitionType
+    [ key in keyof (JSX.IntrinsicElements) ]: (typeof styled[key]) & DefinitionType & {
+      (css: React.CSSProperties): StyledComponent<key, any, {}, never>;
+    }
   }
 ) = sc;
 
